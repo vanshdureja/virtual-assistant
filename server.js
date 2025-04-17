@@ -34,7 +34,7 @@ const isAuthorized = (req) => {
 };
 
 // 🏠 Root route
-app.get("/", (req, res) => {
+app.get("/api", (req, res) => {
   res.send("✅ Server running!");
 });
 
@@ -47,7 +47,7 @@ app.get("/restart", (req, res) => {
 });
 
 // ⏹️ Shutdown route
-app.get("/shutdown", (req, res) => {
+app.get("/api/shutdown", (req, res) => {
   if (!isAuthorized(req)) return res.status(403).send("Unauthorized");
   res.send("Shutting down...");
   const cmd = process.platform === "win32" ? "shutdown -s -t 0" : "sudo shutdown -h now";
@@ -55,7 +55,7 @@ app.get("/shutdown", (req, res) => {
 });
 
 // 🧠 Ask Gemini route
-app.post("/ask", async (req, res) => {
+app.post("/api/ask", async (req, res) => {
   try {
     const { question } = req.body;
     if (!question) return res.status(400).json({ error: "Question is required." });
