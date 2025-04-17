@@ -23,7 +23,7 @@ console.log("✅ Gemini API key loaded");
 // Initialize Gemini API
 const genAI = new GoogleGenerativeAI(apiKey);
 const model = genAI.getGenerativeModel({
-  model: "models/gemini-pro" // ✅ this is the correct full model path
+  model: "gemini-2.0-flash" // ✅ this is the correct full model path
 });
  
 
@@ -59,7 +59,7 @@ app.post("/ask", async (req, res) => {
   try {
     const { question } = req.body;
     if (!question) return res.status(400).json({ error: "Question is required." });
-
+ 
     // ✅ Call Gemini API
     const result = await model.generateContent(question);
     const replyText = await result.response.text();
