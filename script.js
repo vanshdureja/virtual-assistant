@@ -42,7 +42,7 @@ btn.addEventListener("click", () => {
 function processCommand(command) {
     if (command.includes("restart my computer")) {
         speak("Restarting your computer...");
-        fetch("http://localhost:3000/api/restart")
+        fetch("https://virtual-assistant-sfhw.onrender.com/api/restart")
             .then(() => console.log("Restart command sent"))
             .catch((error) => {
                 console.error("Error:", error);
@@ -50,7 +50,7 @@ function processCommand(command) {
             });
     } else if (command.includes("shutdown")) {
         speak("Shutting down your computer...");
-        fetch("http://localhost:3000/api/shutdown")
+        fetch("https://virtual-assistant-sfhw.onrender.com/api/shutdown")
             .then(() => console.log("Shutdown command sent"))
             .catch((error) => {
                 console.error("Error:", error);
@@ -64,7 +64,7 @@ function processCommand(command) {
 // Send user question to Gemini AI via Express backend
 function askAI(question) {
     speak("Let me think...");
-    fetch("http://localhost:3000/api/ask", {
+    fetch("https://virtual-assistant-sfhw.onrender.com/api/ask", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question }),
