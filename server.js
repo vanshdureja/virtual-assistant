@@ -27,11 +27,7 @@ const model = genAI.getGenerativeModel({
 });
  
 
-// Optional: simple token auth for admin routes
-const isAuthorized = (req) => {
-  const token = req.headers.authorization;
-  return token === `Bearer ${process.env.ADMIN_SECRET}`;
-};
+
 
 // 🏠 Root route
 app.get("/api", (req, res) => {
@@ -39,8 +35,8 @@ app.get("/api", (req, res) => {
 });
 
 // 🔁 Restart route
-app.get("/restart", (req, res) => {
-  if (!isAuthorized(req)) return res.status(403).send("Unauthorized");
+app.get("/api/restart", (req, res) => {
+
   res.send("Restarting...");
   const cmd = process.platform === "win32" ? "shutdown -r -t 0" : "sudo reboot";
   exec(cmd, (err) => err && console.error("Restart Error:", err));
@@ -48,7 +44,6 @@ app.get("/restart", (req, res) => {
 
 // ⏹️ Shutdown route
 app.get("/api/shutdown", (req, res) => {
-  if (!isAuthorized(req)) return res.status(403).send("Unauthorized");
   res.send("Shutting down...");
   const cmd = process.platform === "win32" ? "shutdown -s -t 0" : "sudo shutdown -h now";
   exec(cmd, (err) => err && console.error("Shutdown Error:", err));
